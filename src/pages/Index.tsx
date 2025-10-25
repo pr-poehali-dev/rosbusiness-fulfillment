@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -8,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 
 export default function Index() {
   const { toast } = useToast();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -133,6 +135,64 @@ export default function Index() {
             <Icon name="Phone" size={16} className="mr-2" />
             +7 (495) 123-45-67
           </Button>
+          
+          <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="md:hidden">
+                <Icon name="Menu" size={24} />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[300px]">
+              <div className="flex flex-col gap-6 mt-8">
+                <a 
+                  href="#about" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  О компании
+                </a>
+                <a 
+                  href="#services" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Услуги
+                </a>
+                <a 
+                  href="#advantages" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Преимущества
+                </a>
+                <a 
+                  href="#tariffs" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Тарифы
+                </a>
+                <a 
+                  href="#cases" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Кейсы
+                </a>
+                <a 
+                  href="#contacts" 
+                  className="text-lg font-semibold hover:text-primary transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Контакты
+                </a>
+                <Button className="w-full mt-4" onClick={() => setMobileMenuOpen(false)}>
+                  <Icon name="Phone" size={16} className="mr-2" />
+                  +7 (495) 123-45-67
+                </Button>
+              </div>
+            </SheetContent>
+          </Sheet>
         </div>
       </header>
 
