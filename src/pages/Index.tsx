@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,7 @@ import { useToast } from '@/hooks/use-toast';
 export default function Index() {
   const { toast } = useToast();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const aboutRef = useScrollAnimation();
   const servicesRef = useScrollAnimation();
   const advantagesRef = useScrollAnimation();
@@ -33,6 +34,18 @@ export default function Index() {
     });
     setFormData({ name: '', company: '', phone: '', email: '', message: '' });
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 500);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const services = [
     {
@@ -420,6 +433,16 @@ export default function Index() {
       <footer className="py-8 bg-[#0F1419] text-white/60 text-center">
         <p className="text-sm">© 2024 РосБизнесСклад. Все права защищены.</p>
       </footer>
+
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-8 right-8 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-primary/90 transition-all hover:scale-110 z-50 animate-fade-in"
+          aria-label="Наверх"
+        >
+          <Icon name="ArrowUp" size={24} />
+        </button>
+      )}
     </div>
   );
 }
