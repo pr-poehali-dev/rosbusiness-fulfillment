@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -10,6 +11,12 @@ import { useToast } from '@/hooks/use-toast';
 export default function Index() {
   const { toast } = useToast();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const aboutRef = useScrollAnimation();
+  const servicesRef = useScrollAnimation();
+  const advantagesRef = useScrollAnimation();
+  const tariffsRef = useScrollAnimation();
+  const casesRef = useScrollAnimation();
+  const formRef = useScrollAnimation();
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -219,7 +226,7 @@ export default function Index() {
 
       <section id="about" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
+          <div ref={aboutRef.ref} className={`max-w-4xl mx-auto text-center transition-all duration-700 ${aboutRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl font-bold mb-6">О компании</h2>
             <p className="text-lg text-muted-foreground mb-8">
               РосБизнесСклад — современный фулфилмент-оператор с 2015 года. Мы предоставляем полный спектр складских услуг для интернет-магазинов и производителей. Наши склады оснащены современным оборудованием, а команда профессионалов обеспечивает высокую скорость и точность обработки заказов.
@@ -233,10 +240,10 @@ export default function Index() {
 
       <section id="services" className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Наши услуги</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <h2 ref={servicesRef.ref} className={`text-4xl font-bold text-center mb-12 transition-all duration-700 ${servicesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Наши услуги</h2>
+          <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-700 delay-100 ${servicesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {services.map((service, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-all hover:scale-105">
                 <CardContent className="p-6">
                   <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                     <Icon name={service.icon} size={24} className="text-primary" />
@@ -252,11 +259,11 @@ export default function Index() {
 
       <section id="advantages" className="py-20 bg-[#1A1F2C] text-white">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Преимущества в цифрах</h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <h2 ref={advantagesRef.ref} className={`text-4xl font-bold text-center mb-12 transition-all duration-700 ${advantagesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Преимущества в цифрах</h2>
+          <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-8 transition-all duration-700 delay-100 ${advantagesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {advantages.map((advantage, index) => (
               <div key={index} className="text-center">
-                <div className="text-5xl font-bold text-primary mb-2">{advantage.number}</div>
+                <div className="text-5xl font-bold text-primary mb-2 animate-scale-in">{advantage.number}</div>
                 <div className="text-lg text-white/80">{advantage.label}</div>
               </div>
             ))}
@@ -266,10 +273,10 @@ export default function Index() {
 
       <section id="tariffs" className="py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Тарифные планы</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <h2 ref={tariffsRef.ref} className={`text-4xl font-bold text-center mb-12 transition-all duration-700 ${tariffsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Тарифные планы</h2>
+          <div className={`grid md:grid-cols-3 gap-8 max-w-6xl mx-auto transition-all duration-700 delay-100 ${tariffsRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {tariffs.map((tariff, index) => (
-              <Card key={index} className={`relative ${tariff.popular ? 'border-primary border-2 shadow-xl' : ''}`}>
+              <Card key={index} className={`relative hover:scale-105 transition-transform ${tariff.popular ? 'border-primary border-2 shadow-xl' : ''}`}>
                 {tariff.popular && (
                   <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
                     Популярный
@@ -301,10 +308,10 @@ export default function Index() {
 
       <section id="cases" className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold text-center mb-12">Кейсы наших клиентов</h2>
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <h2 ref={casesRef.ref} className={`text-4xl font-bold text-center mb-12 transition-all duration-700 ${casesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>Кейсы наших клиентов</h2>
+          <div className={`grid md:grid-cols-3 gap-6 max-w-6xl mx-auto transition-all duration-700 delay-100 ${casesRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             {cases.map((caseItem, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg hover:scale-105 transition-all">
                 <CardContent className="p-6">
                   <Icon name="Trophy" size={32} className="text-primary mb-4" />
                   <h3 className="text-xl font-bold mb-2">{caseItem.company}</h3>
@@ -319,12 +326,12 @@ export default function Index() {
 
       <section id="form" className="py-20">
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
+          <div ref={formRef.ref} className={`max-w-2xl mx-auto transition-all duration-700 ${formRef.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
             <h2 className="text-4xl font-bold text-center mb-4">Оставьте заявку</h2>
             <p className="text-center text-muted-foreground mb-8">
               Заполните форму, и наш менеджер свяжется с вами в течение 15 минут
             </p>
-            <Card>
+            <Card className="hover:shadow-xl transition-shadow">
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
